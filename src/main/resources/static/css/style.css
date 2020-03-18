@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    user-select: none;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+
+  #slider{
+  	margin: 0px;
+  	padding: 0px;
+  }
+.caption h3, h5{
+	font-size: 20px;
+}
+
+.caption a{
+	position: absolute;
+	background-color: #ffffff00;
+}
+.card
+{
+	height: 50%;
+}
+
+#loginform{
+  background-color: pink;
+}
+
