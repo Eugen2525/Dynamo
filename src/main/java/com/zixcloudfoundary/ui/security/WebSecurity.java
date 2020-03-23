@@ -33,8 +33,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		//http.formLogin().loginPage("/users/login").defaultSuccessUrl("/users/").failureForwardUrl("/users/failure")
-			//	.and().logout().logoutUrl("users/logout").logoutSuccessUrl("/users/logout_success");
+		// http.formLogin().loginPage("/users/login").defaultSuccessUrl("/users/").failureForwardUrl("/users/failure")
+		// .and().logout().logoutUrl("users/logout").logoutSuccessUrl("/users/logout_success");
 		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/images/**").permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/users/login").permitAll().and().authorizeRequests()
 				.antMatchers(HttpMethod.POST, "/users/register").permitAll().and().authorizeRequests()
@@ -43,7 +43,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	}
 
 	private Filter getAuthenticationFilter() throws Exception {
-		AuthenticationFilter filter = new AuthenticationFilter(authenticationManager(), env);
+		AuthenticationFilter filter = new AuthenticationFilter(authenticationManager(), env, userDetailServiceProvider);
 		filter.setFilterProcessesUrl("/users/login");
 		return filter;
 	}
