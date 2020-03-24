@@ -33,18 +33,17 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable();
-		// http.formLogin().loginPage("/users/login").defaultSuccessUrl("/users/").failureForwardUrl("/users/failure")
-		// .and().logout().logoutUrl("users/logout").logoutSuccessUrl("/users/logout_success");
-		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/images/**").permitAll().and().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/users/login").permitAll().and().authorizeRequests()
-				.antMatchers(HttpMethod.POST, "/users/register").permitAll().and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/users/").permitAll().anyRequest().authenticated().and()
+		
+		http.authorizeRequests().antMatchers("/css/**", "/js/**", "/images/**", "/users/").permitAll()
+				.and().authorizeRequests()
+				.antMatchers(HttpMethod.POST, env.getProperty("user.login.url"), env.getProperty("user.register.url"))
+				.permitAll().anyRequest().authenticated().and()
 				.addFilter(getAuthenticationFilter());
 	}
 
 	private Filter getAuthenticationFilter() throws Exception {
 		AuthenticationFilter filter = new AuthenticationFilter(authenticationManager(), env, userDetailServiceProvider);
-		filter.setFilterProcessesUrl("/users/login");
+		filter.setFilterProcessesUrl(env.getProperty("filter.processing.url"));
 		return filter;
 	}
 

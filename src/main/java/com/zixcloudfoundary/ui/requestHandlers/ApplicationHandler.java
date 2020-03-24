@@ -56,4 +56,11 @@ public class ApplicationHandler {
 		ApplicationDto obj=mapper.map(register, ApplicationDto.class);
 		return service.registerUser(obj);
 	}
+	
+	@ResponseBody
+	@RequestMapping("service/status")
+	public String status()
+	{
+		return "Accessed protected endpoint after authentication.";
+	}
 }
